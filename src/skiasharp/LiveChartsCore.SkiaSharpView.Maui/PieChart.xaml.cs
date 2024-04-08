@@ -319,6 +319,9 @@ public partial class PieChart : ChartView, IPieChartView
         BindableProperty.Create(
             nameof(VisualElementsPointerDownCommand), typeof(ICommand), typeof(PieChart), null);
 
+    public static readonly BindableProperty ResetSeriesProperty =
+        BindableProperty.Create(nameof(ResetSeries), typeof(bool), typeof(PieChart), false);
+
     #endregion
 
     #region events
@@ -595,6 +598,13 @@ public partial class PieChart : ChartView, IPieChartView
     {
         get => (ICommand?)GetValue(VisualElementsPointerDownCommandProperty);
         set => SetValue(VisualElementsPointerDownCommandProperty, value);
+    }
+
+    /// <inheritdoc cref="IChartView.ResetSeries">
+    public bool ResetSeries
+    {
+        get => (bool)GetValue(ResetSeriesProperty);
+        set => SetValue(ResetSeriesProperty, value);
     }
 
     #endregion

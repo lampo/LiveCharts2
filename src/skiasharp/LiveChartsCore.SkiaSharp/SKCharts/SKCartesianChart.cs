@@ -74,6 +74,9 @@ public class SKCartesianChart : InMemorySkiaSharpChart, ICartesianChartView
         VisualElements = view.VisualElements;
     }
 
+    /// <inheritdoc cref="IChartView.ResetSeries">
+    public bool ResetSeries { get; set; }
+
     /// <inheritdoc cref="IChartView.DesignerMode" />
     public bool DesignerMode => false;
 

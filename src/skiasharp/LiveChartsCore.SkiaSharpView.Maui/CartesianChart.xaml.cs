@@ -380,7 +380,10 @@ public partial class CartesianChart : ChartView, ICartesianChartView
         BindableProperty.Create(
             nameof(VisualElementsPointerDownCommand), typeof(ICommand), typeof(CartesianChart), null);
 
-    #endregion
+    public static readonly BindableProperty ResetSeriesProperty =
+        BindableProperty.Create(nameof(ResetSeries), typeof(bool), typeof(CartesianChart), false);
+
+#endregion
 
     #region events
 
@@ -412,6 +415,12 @@ public partial class CartesianChart : ChartView, ICartesianChartView
 
     /// <inheritdoc cref="IChartView.DesignerMode" />
     bool IChartView.DesignerMode => false;
+
+    public bool ResetSeries
+    {
+        get => (bool)GetValue(ResetSeriesProperty);
+        set => SetValue(ResetSeriesProperty, value);
+    }
 
     /// <inheritdoc cref="IChartView.CoreChart" />
     public Chart CoreChart => _core ?? throw new Exception("Core not set yet.");

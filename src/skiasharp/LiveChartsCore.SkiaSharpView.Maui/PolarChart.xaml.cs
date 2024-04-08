@@ -360,6 +360,9 @@ public partial class PolarChart : ChartView, IPolarChartView
         BindableProperty.Create(
             nameof(VisualElementsPointerDownCommand), typeof(ICommand), typeof(PolarChart), null);
 
+    public static readonly BindableProperty ResetSeriesProperty =
+        BindableProperty.Create(nameof(ResetSeries), typeof(bool), typeof(PolarChart), false);
+
     #endregion
 
     #region events
@@ -392,6 +395,13 @@ public partial class PolarChart : ChartView, IPolarChartView
 
     /// <inheritdoc cref="IChartView.DesignerMode" />
     bool IChartView.DesignerMode => false;
+
+    /// <inheritdoc cref="IChartView.ResetSeries">
+    public bool ResetSeries
+    {
+        get => (bool)GetValue(ResetSeriesProperty);
+        set => SetValue(ResetSeriesProperty, value);
+    }
 
     /// <inheritdoc cref="IChartView.CoreChart" />
     public Chart CoreChart => _core ?? throw new Exception("Core not set yet.");
