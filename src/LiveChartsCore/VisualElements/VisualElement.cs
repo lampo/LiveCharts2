@@ -82,7 +82,7 @@ public abstract class VisualElement<TDrawingContext> : ChartElement<TDrawingCont
     public MeasureUnit LocationUnit { get => _locationUnit; set => SetProperty(ref _locationUnit, value); }
 
     /// <summary>
-    /// Gets or sets the axis index where the series is scaled in the X plane, the index must exist 
+    /// Gets or sets the axis index where the series is scaled in the X plane, the index must exist
     /// in the <see cref="ICartesianChartView{TDrawingContext}.YAxes"/> collection.
     /// </summary>
     /// <value>
@@ -91,7 +91,7 @@ public abstract class VisualElement<TDrawingContext> : ChartElement<TDrawingCont
     public int ScalesXAt { get => _scalesXAt; set => SetProperty(ref _scalesXAt, value); }
 
     /// <summary>
-    /// Gets or sets the axis index where the series is scaled in the Y plane, the index must exist 
+    /// Gets or sets the axis index where the series is scaled in the Y plane, the index must exist
     /// in the <see cref="ICartesianChartView{TDrawingContext}.YAxes"/> collection.
     /// </summary>
     /// <value>
@@ -109,6 +109,10 @@ public abstract class VisualElement<TDrawingContext> : ChartElement<TDrawingCont
     /// Called when the pointer goes down on the visual.
     /// </summary>
     public event VisualElementHandler<TDrawingContext>? PointerDown;
+
+    public event VisualElementHandler<TDrawingContext>? PointerMove;
+
+    public event VisualElementHandler<TDrawingContext>? PointerUp;
 
     /// <inheritdoc cref="ChartElement{TDrawingContext}.Invalidate(Chart{TDrawingContext})"/>
     public override void Invalidate(Chart<TDrawingContext> chart)
@@ -196,6 +200,16 @@ public abstract class VisualElement<TDrawingContext> : ChartElement<TDrawingCont
     internal void InvokePointerDown(VisualElementEventArgs<TDrawingContext> args)
     {
         PointerDown?.Invoke(this, args);
+    }
+
+    internal void InvokePointerMove(VisualElementEventArgs<TDrawingContext> args)
+    {
+        PointerMove?.Invoke(this, args);
+    }
+
+    internal void InvokePointerUp(VisualElementEventArgs<TDrawingContext> args)
+    {
+        PointerUp?.Invoke(this, args);
     }
 
     internal abstract IAnimatable?[] GetDrawnGeometries();

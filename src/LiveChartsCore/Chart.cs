@@ -369,6 +369,15 @@ public abstract class Chart<TDrawingContext> : IChart
         if (!_isPanning) return;
         _pointerPanningPosition = point;
         _panningThrottler.Call();
+
+        // fire the visual elements event.
+        var hitElements =
+            _everMeasuredElements.OfType<VisualElement<TDrawingContext>>()
+                                 .Cast<VisualElement<TDrawingContext>>()
+                                 .SelectMany(x => x.IsHitBy(this, point));
+
+        foreach (var ve in hitElements)
+            ve.InvokePointerMove(new VisualElementEventArgs<TDrawingContext>(this, ve, point));
     }
 
     internal virtual void InvokePointerUp(LvcPoint point, bool isSecondaryAction)
@@ -387,6 +396,15 @@ public abstract class Chart<TDrawingContext> : IChart
         _isPanning = false;
         _pointerPanningPosition = point;
         _panningThrottler.Call();
+
+        // fire the visual elements event.
+        var hitElements =
+            _everMeasuredElements.OfType<VisualElement<TDrawingContext>>()
+                                 .Cast<VisualElement<TDrawingContext>>()
+                                 .SelectMany(x => x.IsHitBy(this, point));
+
+        foreach (var ve in hitElements)
+            ve.InvokePointerUp(new VisualElementEventArgs<TDrawingContext>(this, ve, point));
     }
 
     internal void InvokePointerLeft()
