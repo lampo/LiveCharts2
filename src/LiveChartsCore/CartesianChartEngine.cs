@@ -453,7 +453,7 @@ public class CartesianChartEngine(
             _nextSeries = 0;
         }
 
-        foreach (var series in VisibleSeries.Cast<ICartesianSeries>())d40d48b55000 ([ADDITION] Allow for the Chart Colors list to be reset):src/LiveChartsCore/CartesianChart.cs
+        foreach (var series in VisibleSeries.Cast<ICartesianSeries>())
         {
             if (series.SeriesId == -1) series.SeriesId = _nextSeries++;
 
